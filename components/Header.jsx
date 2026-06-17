@@ -4,13 +4,13 @@ export default function Header() {
       <div className="container">
         <div className="header-content">
           <div className="logo">
-            <h1 className="logo-text">IA Perú</h1>
-            <p className="logo-subtitle">Taller de Inteligencia Artificial</p>
+            <h1 className="logo-text">Primer Empleado IA</h1>
+            <p className="logo-subtitle">para negocios del Perú</p>
           </div>
           <nav className="nav">
             <a href="#inicio" className="nav-link">Inicio</a>
-            <a href="#proceso" className="nav-link">Proceso</a>
-            <a href="#registro" className="nav-link">Registro</a>
+            <a href="#proceso" className="nav-link">Cómo funciona</a>
+            <a href="#conversacion" className="nav-link">Empezar</a>
           </nav>
         </div>
       </div>

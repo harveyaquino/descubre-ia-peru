@@ -3,28 +3,22 @@ export default function Hero({ onCTAClick }) {
     <section className="hero" id="inicio">
       <div className="container">
         <div className="hero-content">
-          <h1 className="hero-title">
-            Descubre cómo la IA puede transformar tu negocio
-          </h1>
+          <h1 className="hero-title">Descubre tu primer empleado IA</h1>
           <p className="hero-subtitle">
-            Únete a nuestro taller interactivo y aprende de expertos en Inteligencia Artificial.
-            Una experiencia diseñada para empresas peruanas que desean innovar.
-          </p>
-          <p className="hero-meta">
-            Completa tu perfil • Recibe recomendaciones personalizadas • Acceso a recursos exclusivos
+            Conversa unos minutos y descubre qué parte de tu negocio puedes
+            empezar a automatizar hoy con inteligencia artificial. Hecho para
+            emprendedores y PYMEs del Perú.
           </p>
           <button className="btn btn-primary btn-large" onClick={onCTAClick}>
-            Comienza ahora
+            Empezar la conversación
           </button>
-          <p className="hero-note">
-            Gratis · Sin compromiso · Acceso inmediato
-          </p>
+          <p className="hero-note">gratis · sin registro · te llevas tu ficha</p>
         </div>
       </div>
 
       <style jsx>{`
         .hero {
-          padding: 4rem 0;
+          padding: 5rem 0 4rem;
           text-align: center;
           background: linear-gradient(135deg, #fafaf8 0%, #f5f5f0 100%);
           border-bottom: 1px solid #e0e0e0;
@@ -40,21 +34,14 @@ export default function Hero({ onCTAClick }) {
           font-weight: 700;
           color: var(--primary);
           margin-bottom: 1rem;
-          line-height: 1.2;
+          line-height: 1.15;
         }
 
         .hero-subtitle {
-          font-size: 1.25rem;
+          font-size: 1.2rem;
           color: #555;
-          margin-bottom: 1.5rem;
-          line-height: 1.6;
-        }
-
-        .hero-meta {
-          font-size: 0.95rem;
-          color: #777;
           margin-bottom: 2rem;
-          font-weight: 500;
+          line-height: 1.6;
         }
 
         .btn-large {
@@ -73,15 +60,12 @@ export default function Hero({ onCTAClick }) {
           .hero {
             padding: 3rem 0;
           }
-
           .hero-title {
             font-size: 2rem;
           }
-
           .hero-subtitle {
             font-size: 1rem;
           }
-
           .btn-large {
             padding: 14px 32px;
             font-size: 1rem;

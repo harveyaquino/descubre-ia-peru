@@ -7,7 +7,9 @@
       "Read(//c/c/Users/harvey/Desktop/IA de Claude para PYMEs/**)",
       "Skill(claude-api)",
       "Bash(cd \"/c/Users/harvey/Desktop/IA de Claude para PYMEs\")",
-      "Bash(rm -f next.config.js)"
+      "Bash(rm -f next.config.js)",
+      "PowerShell(Set-Location *)",
+      "Bash(rm -f lib/analyze.js components/Analysis.jsx components/SignupForm.jsx)"
     ]
   }
 }

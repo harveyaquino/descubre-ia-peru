@@ -2,25 +2,25 @@ export default function Process() {
   const steps = [
     {
       number: '01',
-      title: 'Completa tu perfil',
-      description: 'Cuéntanos sobre tu negocio, desafíos y objetivos. Solo 5-10 minutos.'
+      title: 'La conversación',
+      description: 'Respondes unas preguntas sencillas sobre tu negocio. Toma unos 5 minutos.'
     },
     {
       number: '02',
-      title: 'Recibe análisis personalizado',
-      description: 'Nuestro sistema IA analiza tu situación y genera recomendaciones específicas para ti.'
+      title: 'Tu ficha personalizada',
+      description: 'Descubre cuál es tu primer "empleado IA" ideal y qué tareas le delegarías.'
     },
     {
       number: '03',
-      title: 'Acceso a plan de acción',
-      description: 'Obtén un roadmap claro con pasos próximos para comenzar a implementar IA en tu empresa.'
+      title: 'Tu plan de 7 días',
+      description: 'Un plan paso a paso, día por día, para ponerlo en marcha esta semana.'
     }
   ];
 
   return (
     <section className="process" id="proceso">
       <div className="container">
-        <h2 className="process-title">Así funciona</h2>
+        <h2 className="process-title">Cómo funciona</h2>
         <div className="steps-grid">
           {steps.map((step) => (
             <div key={step.number} className="step-card">

@@ -6,30 +6,23 @@ export default function Footer() {
       <div className="container">
         <div className="footer-content">
           <div className="footer-section">
-            <h3>IA Perú Taller</h3>
-            <p>Transformando empresas peruanas con Inteligencia Artificial</p>
+            <h3>Primer Empleado IA</h3>
+            <p>Descubre qué automatizar primero en tu negocio con inteligencia artificial.</p>
           </div>
 
           <div className="footer-section">
             <h4>Enlaces</h4>
             <ul className="footer-links">
               <li><a href="#inicio">Inicio</a></li>
-              <li><a href="#proceso">Proceso</a></li>
-              <li><a href="#registro">Registro</a></li>
+              <li><a href="#proceso">Cómo funciona</a></li>
+              <li><a href="#conversacion">Empezar la conversación</a></li>
             </ul>
-          </div>
-
-          <div className="footer-section">
-            <h4>Contacto</h4>
-            <p className="contact-info">
-              Email: <a href="mailto:info@iaperu.com">info@iaperu.com</a>
-            </p>
           </div>
         </div>
 
         <div className="footer-bottom">
-          <p>&copy; {currentYear} IA Perú. Todos los derechos reservados.</p>
-          <p className="footer-meta">Construido con Next.js, Vercel y Supabase</p>
+          <p>&copy; {currentYear} · Hecho en Perú 🇵🇪</p>
+          <p className="footer-meta">edición experimental · v1</p>
         </div>
       </div>
 
