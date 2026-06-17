@@ -60,7 +60,7 @@ export default function Process() {
 
         .step-card:hover {
           transform: translateY(-4px);
-          box-shadow: 0 12px 24px rgba(212, 20, 90, 0.1);
+          box-shadow: 0 12px 24px rgba(27, 94, 63, 0.1);
           border-color: var(--primary);
         }
 

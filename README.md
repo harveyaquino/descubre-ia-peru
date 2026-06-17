@@ -1,6 +1,10 @@
 # Descubre tu primer empleado IA
 
-Experiencia conversacional para emprendedores y PYMEs del Perú: "Lucía", una asistente de IA, entrevista al visitante unos minutos y le entrega una **ficha personalizada** (su primer "empleado IA") + un **plan de 7 días**. Construida con Next.js, Supabase y Vercel; el análisis lo genera Claude (`claude-opus-4-8`).
+Experiencia conversacional para emprendedores y PYMEs del Perú: "Lucía", una asistente de IA, entrevista al visitante unos minutos, **diagnostica en qué momento está su negocio** (Base, Sistemas, Contenido o Escalar) y le entrega una **ficha personalizada** con una herramienta estrella + un **plan de 7 días**.
+
+Las recomendaciones salen **solo del catálogo del método** "IA para tu negocio: de la base a la automatización" (ver `IA_para_tu_negocio.pdf`): ChatGPT, Looka, Khroma, Durable, Notion AI, Desygner, Canva, Riverside, Ocoya, Fireflies, Perplexity, Tidio, HubSpot Breeze, Claude y Zapier.
+
+Construida con Next.js, Supabase y Vercel; la conversación la genera Claude (`claude-opus-4-8`).
 
 ## 🚀 Stack Tecnológico
 

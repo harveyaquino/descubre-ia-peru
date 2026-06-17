@@ -2,10 +2,10 @@ import { useState, useRef, useEffect } from 'react';
 import Ficha from './Ficha';
 
 const GREETING =
-  '¡Hola! Soy Lucía 👋 Te voy a hacer unas preguntas cortas sobre tu negocio ' +
-  'para descubrir cuál sería tu *primer empleado IA*: la tarea que más te ' +
-  'conviene delegar a la inteligencia artificial. Son unos 5 minutos y no ' +
-  'necesitas registrarte. Para empezar, cuéntame: ¿a qué se dedica tu negocio?';
+  '¡Hola! Soy Lucía 👋 Te voy a hacer unas preguntas cortas para entender en qué ' +
+  'momento está tu negocio y recomendarte el mejor punto de partida con ' +
+  'inteligencia artificial. Son unos 5 minutos y no necesitas registrarte. ' +
+  'Para empezar, cuéntame: ¿a qué se dedica tu negocio y hace cuánto está en marcha?';
 
 function initialMessages() {
   return [{ role: 'assistant', content: GREETING }];
@@ -256,7 +256,7 @@ export default function Chat() {
         .composer input:focus {
           outline: none;
           border-color: var(--primary);
-          box-shadow: 0 0 0 3px rgba(212, 20, 90, 0.1);
+          box-shadow: 0 0 0 3px rgba(27, 94, 63, 0.1);
         }
 
         .composer button {

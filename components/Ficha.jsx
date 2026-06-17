@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { isValidEmail } from '../lib/validate';
 
 /**
- * Renderiza la ficha final: el "primer empleado IA" recomendado, sus tareas,
- * herramientas, el plan de 7 días y la captura OPCIONAL de email.
+ * Renderiza la ficha final: el momento del negocio, el diagnóstico, la
+ * herramienta estrella, las de apoyo, el plan de 7 días y la captura
+ * OPCIONAL de email. Las herramientas salen del catálogo del PDF.
  */
 export default function Ficha({ ficha, onReset }) {
   const [email, setEmail] = useState('');
@@ -34,28 +35,45 @@ export default function Ficha({ ficha, onReset }) {
     }
   };
 
+  const estrella = ficha.herramienta_estrella || {};
+  const apoyo = ficha.herramientas_apoyo || [];
+
   return (
     <div className="ficha">
-      <div className="ribbon">Tu primer empleado IA</div>
-      <h2 className="empleado">{ficha.empleado_nombre}</h2>
-      <p className="resumen">{ficha.empleado_resumen}</p>
+      <div className="ribbon">Momento: {ficha.momento}</div>
+      <p className="diagnostico">{ficha.diagnostico}</p>
 
-      <h3>Qué haría por ti</h3>
-      <ul className="tareas">
-        {(ficha.tareas || []).map((t, i) => (
-          <li key={i}>{t}</li>
-        ))}
-      </ul>
-
-      <h3>Con qué herramientas empezar</h3>
-      <div className="herramientas">
-        {(ficha.herramientas || []).map((h, i) => (
-          <div key={i} className="herramienta">
-            <span className="h-nombre">{h.nombre}</span>
-            <span className="h-para">{h.para_que}</span>
-          </div>
-        ))}
+      <div className="estrella">
+        <div className="estrella-label">Empieza por</div>
+        <div className="estrella-nombre">{estrella.nombre}</div>
+        <p className="estrella-para">{estrella.para_que}</p>
+        {estrella.url && (
+          <a className="estrella-link" href={toHref(estrella.url)} target="_blank" rel="noreferrer">
+            {estrella.url} ↗
+          </a>
+        )}
       </div>
+
+      {apoyo.length > 0 && (
+        <>
+          <h3>También te servirá</h3>
+          <div className="herramientas">
+            {apoyo.map((h, i) => (
+              <div key={i} className="herramienta">
+                <div className="h-top">
+                  <span className="h-nombre">{h.nombre}</span>
+                  {h.url && (
+                    <a href={toHref(h.url)} target="_blank" rel="noreferrer" className="h-url">
+                      {h.url} ↗
+                    </a>
+                  )}
+                </div>
+                <span className="h-para">{h.para_que}</span>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
 
       <h3>Tu plan de 7 días</h3>
       <ol className="plan">
@@ -112,7 +130,7 @@ export default function Ficha({ ficha, onReset }) {
           display: inline-block;
           background: var(--primary);
           color: white;
-          font-size: 0.7rem;
+          font-size: 0.72rem;
           font-weight: 700;
           letter-spacing: 0.05em;
           text-transform: uppercase;
@@ -121,15 +139,45 @@ export default function Ficha({ ficha, onReset }) {
           margin-bottom: 1rem;
         }
 
-        .empleado {
-          color: var(--dark);
-          margin-bottom: 0.5rem;
-        }
-
-        .resumen {
-          color: #555;
+        .diagnostico {
+          color: #444;
           font-size: 1.1rem;
           line-height: 1.6;
+          margin-bottom: 1.5rem;
+        }
+
+        .estrella {
+          border: 2px solid var(--primary);
+          border-radius: 10px;
+          padding: 1.25rem 1.5rem;
+          background: rgba(27, 94, 63, 0.04);
+        }
+
+        .estrella-label {
+          font-size: 0.72rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          color: var(--primary);
+        }
+
+        .estrella-nombre {
+          font-size: 1.5rem;
+          font-weight: 700;
+          color: var(--dark);
+          margin: 0.2rem 0 0.4rem;
+        }
+
+        .estrella-para {
+          color: #555;
+          margin: 0 0 0.6rem;
+          line-height: 1.5;
+        }
+
+        .estrella-link {
+          font-weight: 600;
+          color: var(--primary);
+          font-size: 0.9rem;
         }
 
         h3 {
@@ -138,31 +186,32 @@ export default function Ficha({ ficha, onReset }) {
           margin: 1.75rem 0 0.75rem;
         }
 
-        .tareas {
-          margin: 0;
-          padding-left: 1.2rem;
-          color: #444;
-        }
-
-        .tareas li {
-          margin-bottom: 0.4rem;
-        }
-
         .herramientas {
           display: grid;
-          gap: 0.6rem;
+          gap: 0.7rem;
         }
 
         .herramienta {
-          display: flex;
-          flex-direction: column;
           border-left: 3px solid var(--secondary);
-          padding: 0.4rem 0 0.4rem 0.8rem;
+          padding: 0.45rem 0 0.45rem 0.85rem;
+        }
+
+        .h-top {
+          display: flex;
+          justify-content: space-between;
+          align-items: baseline;
+          gap: 0.8rem;
         }
 
         .h-nombre {
           font-weight: 600;
           color: var(--dark);
+        }
+
+        .h-url {
+          font-size: 0.8rem;
+          color: var(--primary);
+          white-space: nowrap;
         }
 
         .h-para {
@@ -174,7 +223,6 @@ export default function Ficha({ ficha, onReset }) {
           margin: 0;
           padding: 0;
           list-style: none;
-          counter-reset: none;
         }
 
         .plan li {
@@ -202,7 +250,7 @@ export default function Ficha({ ficha, onReset }) {
         .cierre {
           margin-top: 1.5rem;
           padding: 1rem;
-          background: rgba(247, 184, 1, 0.12);
+          background: rgba(242, 183, 5, 0.14);
           border-radius: 8px;
           color: #444;
           line-height: 1.6;
@@ -239,7 +287,7 @@ export default function Ficha({ ficha, onReset }) {
         .lead-row input:focus {
           outline: none;
           border-color: var(--primary);
-          box-shadow: 0 0 0 3px rgba(212, 20, 90, 0.1);
+          box-shadow: 0 0 0 3px rgba(27, 94, 63, 0.12);
         }
 
         .lead-row button {
@@ -248,14 +296,14 @@ export default function Ficha({ ficha, onReset }) {
         }
 
         .lead-error {
-          color: var(--primary);
+          color: #c0392b;
           font-size: 0.8rem;
           margin-top: 0.4rem;
           display: block;
         }
 
         .lead-ok {
-          color: var(--accent);
+          color: var(--primary);
           font-weight: 600;
           margin: 0;
         }
@@ -277,4 +325,10 @@ export default function Ficha({ ficha, onReset }) {
       `}</style>
     </div>
   );
+}
+
+// Normaliza un dominio del catálogo a una URL navegable.
+function toHref(url) {
+  const u = String(url).trim();
+  return u.startsWith('http') ? u : `https://${u}`;
 }
