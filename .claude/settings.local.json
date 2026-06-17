@@ -10,7 +10,8 @@
       "Bash(rm -f next.config.js)",
       "PowerShell(Set-Location *)",
       "Bash(rm -f lib/analyze.js components/Analysis.jsx components/SignupForm.jsx)",
-      "WebFetch(domain:www.ide-solution.com)"
+      "WebFetch(domain:www.ide-solution.com)",
+      "WebFetch(domain:descubre-ia-cix.vercel.app)"
     ]
   }
 }

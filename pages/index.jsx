@@ -5,6 +5,7 @@ import Hero from '../components/Hero';
 import Process from '../components/Process';
 import Chat from '../components/Chat';
 import Footer from '../components/Footer';
+import WhatsAppButton from '../components/WhatsAppButton';
 
 export default function Home() {
   const chatRef = useRef(null);
@@ -28,6 +29,15 @@ export default function Home() {
           content="Conversa unos minutos y descubre qué automatizar primero en tu negocio."
         />
         <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Primer Empleado IA" />
+        <meta property="og:url" content="https://descubre-ia-cix.vercel.app/" />
+        <meta property="og:locale" content="es_PE" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="Descubre tu primer empleado IA" />
+        <meta
+          name="twitter:description"
+          content="Conversa unos minutos y descubre qué automatizar primero en tu negocio."
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -40,6 +50,7 @@ export default function Home() {
       </div>
 
       <Footer />
+      <WhatsAppButton />
     </>
   );
 }
