@@ -2,10 +2,10 @@ import { useState, useRef, useEffect } from 'react';
 import Ficha from './Ficha';
 
 const GREETING =
-  '¡Hola! Soy Lucía 👋 Te voy a hacer unas preguntas cortas para entender en qué ' +
-  'momento está tu negocio y recomendarte el mejor punto de partida con ' +
-  'inteligencia artificial. Son unos 5 minutos y no necesitas registrarte. ' +
-  'Para empezar, cuéntame: ¿a qué se dedica tu negocio y hace cuánto está en marcha?';
+  '¡Hola! Soy Lucía 👋 Te haré unas preguntas cortas para ver cómo está tu ' +
+  'negocio en general y armarte una ruta con inteligencia artificial. Son unos ' +
+  '5 minutos y no necesitas registrarte. Para empezar, cuéntame: ¿a qué se ' +
+  'dedica tu negocio y hace cuánto está en marcha?';
 
 function initialMessages() {
   return [{ role: 'assistant', content: GREETING }];

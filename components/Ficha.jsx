@@ -2,10 +2,66 @@ import { useState } from 'react';
 import { isValidEmail } from '../lib/validate';
 
 /**
- * Renderiza la ficha final: el momento del negocio, el diagnóstico, la
- * herramienta estrella, las de apoyo, el plan de 7 días y la captura
- * OPCIONAL de email. Las herramientas salen del catálogo del PDF.
+ * Ficha final: diagnóstico, mapa de las 4 dimensiones (Base, Sistemas,
+ * Contenido, Escalar), prioridad inmediata, ruta con links, plan de 7 días
+ * y captura OPCIONAL de email.
  */
+
+const ESTADO_META = {
+  tiene: { label: 'Ya lo tienes', icon: '✓', color: '#1f9d55', bg: 'rgba(31,157,85,0.1)' },
+  mejorar: { label: 'Por mejorar', icon: '◐', color: '#c8810a', bg: 'rgba(200,129,10,0.12)' },
+  falta: { label: 'Te falta', icon: '○', color: '#c0392b', bg: 'rgba(192,57,43,0.1)' },
+};
+
+function toHref(url) {
+  const u = String(url || '').trim();
+  if (!u) return '#';
+  return u.startsWith('http') ? u : `https://${u}`;
+}
+
+function Herramienta({ h }) {
+  if (!h) return null;
+  return (
+    <div className="tool">
+      <div className="tool-top">
+        <span className="tool-name">{h.nombre}</span>
+        {h.url && (
+          <a className="tool-url" href={toHref(h.url)} target="_blank" rel="noreferrer">
+            {h.url} ↗
+          </a>
+        )}
+      </div>
+      <span className="tool-para">{h.para_que}</span>
+      <style jsx>{`
+        .tool {
+          display: flex;
+          flex-direction: column;
+          gap: 0.2rem;
+        }
+        .tool-top {
+          display: flex;
+          justify-content: space-between;
+          align-items: baseline;
+          gap: 0.8rem;
+        }
+        .tool-name {
+          font-weight: 600;
+          color: var(--dark);
+        }
+        .tool-url {
+          font-size: 0.8rem;
+          color: var(--primary);
+          white-space: nowrap;
+        }
+        .tool-para {
+          color: #666;
+          font-size: 0.9rem;
+        }
+      `}</style>
+    </div>
+  );
+}
+
 export default function Ficha({ ficha, onReset }) {
   const [email, setEmail] = useState('');
   const [sending, setSending] = useState(false);
@@ -35,46 +91,61 @@ export default function Ficha({ ficha, onReset }) {
     }
   };
 
-  const estrella = ficha.herramienta_estrella || {};
-  const apoyo = ficha.herramientas_apoyo || [];
+  const dimensiones = ficha.dimensiones || [];
+  const prioridad = ficha.prioridad || {};
+  const ruta = ficha.ruta || [];
 
   return (
     <div className="ficha">
-      <div className="ribbon">Momento: {ficha.momento}</div>
+      <div className="ribbon">Tu diagnóstico de IA</div>
       <p className="diagnostico">{ficha.diagnostico}</p>
 
-      <div className="estrella">
-        <div className="estrella-label">Empieza por</div>
-        <div className="estrella-nombre">{estrella.nombre}</div>
-        <p className="estrella-para">{estrella.para_que}</p>
-        {estrella.url && (
-          <a className="estrella-link" href={toHref(estrella.url)} target="_blank" rel="noreferrer">
-            {estrella.url} ↗
-          </a>
-        )}
+      {/* Mapa de las 4 dimensiones */}
+      <h3>Cómo está tu negocio hoy</h3>
+      <div className="mapa">
+        {dimensiones.map((d, i) => {
+          const meta = ESTADO_META[d.estado] || ESTADO_META.falta;
+          return (
+            <div key={i} className="dim" style={{ borderColor: meta.color }}>
+              <div className="dim-head">
+                <span className="dim-etapa">{d.etapa}</span>
+                <span className="dim-pill" style={{ color: meta.color, background: meta.bg }}>
+                  {meta.icon} {meta.label}
+                </span>
+              </div>
+              <span className="dim-nota">{d.nota}</span>
+            </div>
+          );
+        })}
       </div>
 
-      {apoyo.length > 0 && (
+      {/* Prioridad inmediata */}
+      <div className="prioridad">
+        <div className="prioridad-label">Empieza por aquí</div>
+        <div className="prioridad-titulo">{prioridad.titulo}</div>
+        <p className="prioridad-porque">{prioridad.por_que}</p>
+        <Herramienta h={prioridad.herramienta} />
+      </div>
+
+      {/* Ruta */}
+      {ruta.length > 0 && (
         <>
-          <h3>También te servirá</h3>
-          <div className="herramientas">
-            {apoyo.map((h, i) => (
-              <div key={i} className="herramienta">
-                <div className="h-top">
-                  <span className="h-nombre">{h.nombre}</span>
-                  {h.url && (
-                    <a href={toHref(h.url)} target="_blank" rel="noreferrer" className="h-url">
-                      {h.url} ↗
-                    </a>
-                  )}
+          <h3>Tu ruta siguiente</h3>
+          <div className="ruta">
+            {ruta.map((r, i) => (
+              <div key={i} className="ruta-paso">
+                <div className="ruta-num">{i + 1}</div>
+                <div className="ruta-cuerpo">
+                  <div className="ruta-titulo">{r.titulo}</div>
+                  <Herramienta h={r.herramienta} />
                 </div>
-                <span className="h-para">{h.para_que}</span>
               </div>
             ))}
           </div>
         </>
       )}
 
+      {/* Plan de 7 días */}
       <h3>Tu plan de 7 días</h3>
       <ol className="plan">
         {(ficha.plan_7_dias || []).map((p, i) => (
@@ -143,17 +214,68 @@ export default function Ficha({ ficha, onReset }) {
           color: #444;
           font-size: 1.1rem;
           line-height: 1.6;
-          margin-bottom: 1.5rem;
+          margin-bottom: 1rem;
         }
 
-        .estrella {
+        h3 {
+          color: var(--primary);
+          font-size: 1.05rem;
+          margin: 1.75rem 0 0.85rem;
+        }
+
+        /* Mapa de dimensiones */
+        .mapa {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 0.7rem;
+        }
+
+        .dim {
+          border: 1px solid #eee;
+          border-left-width: 4px;
+          border-radius: 8px;
+          padding: 0.75rem 0.9rem;
+          background: #fcfcfb;
+        }
+
+        .dim-head {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 0.35rem;
+          gap: 0.4rem;
+        }
+
+        .dim-etapa {
+          font-weight: 700;
+          color: var(--dark);
+          font-size: 0.95rem;
+        }
+
+        .dim-pill {
+          font-size: 0.68rem;
+          font-weight: 700;
+          padding: 2px 8px;
+          border-radius: 12px;
+          white-space: nowrap;
+        }
+
+        .dim-nota {
+          color: #666;
+          font-size: 0.82rem;
+          line-height: 1.4;
+        }
+
+        /* Prioridad */
+        .prioridad {
+          margin-top: 1.75rem;
           border: 2px solid var(--primary);
           border-radius: 10px;
           padding: 1.25rem 1.5rem;
-          background: rgba(27, 94, 63, 0.04);
+          background: rgba(11, 92, 171, 0.04);
         }
 
-        .estrella-label {
+        .prioridad-label {
           font-size: 0.72rem;
           font-weight: 700;
           text-transform: uppercase;
@@ -161,64 +283,56 @@ export default function Ficha({ ficha, onReset }) {
           color: var(--primary);
         }
 
-        .estrella-nombre {
-          font-size: 1.5rem;
+        .prioridad-titulo {
+          font-size: 1.35rem;
           font-weight: 700;
           color: var(--dark);
           margin: 0.2rem 0 0.4rem;
         }
 
-        .estrella-para {
+        .prioridad-porque {
           color: #555;
-          margin: 0 0 0.6rem;
+          margin: 0 0 0.8rem;
           line-height: 1.5;
         }
 
-        .estrella-link {
-          font-weight: 600;
-          color: var(--primary);
-          font-size: 0.9rem;
-        }
-
-        h3 {
-          color: var(--primary);
-          font-size: 1.05rem;
-          margin: 1.75rem 0 0.75rem;
-        }
-
-        .herramientas {
+        /* Ruta */
+        .ruta {
           display: grid;
-          gap: 0.7rem;
-        }
-
-        .herramienta {
-          border-left: 3px solid var(--secondary);
-          padding: 0.45rem 0 0.45rem 0.85rem;
-        }
-
-        .h-top {
-          display: flex;
-          justify-content: space-between;
-          align-items: baseline;
           gap: 0.8rem;
         }
 
-        .h-nombre {
+        .ruta-paso {
+          display: flex;
+          gap: 0.8rem;
+          align-items: flex-start;
+        }
+
+        .ruta-num {
+          width: 26px;
+          height: 26px;
+          flex-shrink: 0;
+          border-radius: 50%;
+          background: var(--secondary);
+          color: #08263f;
+          font-weight: 700;
+          font-size: 0.85rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .ruta-cuerpo {
+          flex: 1;
+        }
+
+        .ruta-titulo {
           font-weight: 600;
           color: var(--dark);
+          margin-bottom: 0.2rem;
         }
 
-        .h-url {
-          font-size: 0.8rem;
-          color: var(--primary);
-          white-space: nowrap;
-        }
-
-        .h-para {
-          color: #666;
-          font-size: 0.9rem;
-        }
-
+        /* Plan */
         .plan {
           margin: 0;
           padding: 0;
@@ -250,12 +364,13 @@ export default function Ficha({ ficha, onReset }) {
         .cierre {
           margin-top: 1.5rem;
           padding: 1rem;
-          background: rgba(242, 183, 5, 0.14);
+          background: rgba(0, 174, 239, 0.1);
           border-radius: 8px;
           color: #444;
           line-height: 1.6;
         }
 
+        /* Lead */
         .lead-box {
           margin-top: 2rem;
           padding-top: 1.5rem;
@@ -287,7 +402,7 @@ export default function Ficha({ ficha, onReset }) {
         .lead-row input:focus {
           outline: none;
           border-color: var(--primary);
-          box-shadow: 0 0 0 3px rgba(27, 94, 63, 0.12);
+          box-shadow: 0 0 0 3px rgba(11, 92, 171, 0.12);
         }
 
         .lead-row button {
@@ -318,6 +433,9 @@ export default function Ficha({ ficha, onReset }) {
           .ficha {
             padding: 1.5rem;
           }
+          .mapa {
+            grid-template-columns: 1fr;
+          }
           .lead-row {
             flex-direction: column;
           }
@@ -325,10 +443,4 @@ export default function Ficha({ ficha, onReset }) {
       `}</style>
     </div>
   );
-}
-
-// Normaliza un dominio del catálogo a una URL navegable.
-function toHref(url) {
-  const u = String(url).trim();
-  return u.startsWith('http') ? u : `https://${u}`;
 }
