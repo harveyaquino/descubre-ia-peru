@@ -7,13 +7,13 @@ export default function Process() {
     },
     {
       number: '02',
-      title: 'Tu ficha personalizada',
-      description: 'Descubre cuál es tu primer "empleado IA" ideal y qué tareas le delegarías.'
+      title: 'Tu diagnóstico y ruta',
+      description: 'Recibe un diagnóstico de tu negocio en 4 dimensiones y la herramienta ideal para empezar.'
     },
     {
       number: '03',
       title: 'Tu plan de 7 días',
-      description: 'Un plan paso a paso, día por día, para ponerlo en marcha esta semana.'
+      description: 'Una ruta paso a paso, día por día, para ponerla en marcha esta semana.'
     }
   ];
 

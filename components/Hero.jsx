@@ -3,16 +3,16 @@ export default function Hero({ onCTAClick }) {
     <section className="hero" id="inicio">
       <div className="container">
         <div className="hero-content">
-          <h1 className="hero-title">Descubre tu primer empleado IA</h1>
+          <h1 className="hero-title">Descubre por dónde empezar con IA en tu negocio</h1>
           <p className="hero-subtitle">
-            Conversa unos minutos y descubre qué parte de tu negocio puedes
-            empezar a automatizar hoy con inteligencia artificial. Hecho para
-            emprendedores y PYMEs del Perú.
+            Conversa unos minutos con Lucía: te hace un diagnóstico de tu negocio
+            y te arma una ruta práctica con las herramientas de IA ideales para tu
+            momento. Para emprendedores y PYMEs del Perú.
           </p>
           <button className="btn btn-primary btn-large" onClick={onCTAClick}>
             Empezar la conversación
           </button>
-          <p className="hero-note">gratis · sin registro · te llevas tu ficha</p>
+          <p className="hero-note">gratis · sin registro · te llevas tu diagnóstico y plan</p>
         </div>
       </div>
 
