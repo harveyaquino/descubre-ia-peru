@@ -2,7 +2,12 @@
   "permissions": {
     "allow": [
       "WebFetch(domain:descubre.ia-aldia.com)",
-      "Bash(git init *)"
+      "Bash(git init *)",
+      "Read(//c/c/Users/harvey/Desktop/**)",
+      "Read(//c/c/Users/harvey/Desktop/IA de Claude para PYMEs/**)",
+      "Skill(claude-api)",
+      "Bash(cd \"/c/Users/harvey/Desktop/IA de Claude para PYMEs\")",
+      "Bash(rm -f next.config.js)"
     ]
   }
 }

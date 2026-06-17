@@ -53,12 +53,27 @@ CREATE INDEX idx_leads_created_at ON leads(created_at);
 
 ### 4. Configurar Variables de Entorno
 
-Crear archivo `.env.local`:
+Copia `.env.local.example` a `.env.local` y rellena las 3 claves:
 
 ```bash
-NEXT_PUBLIC_SUPABASE_URL=tu_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=tu_anon_key
+NEXT_PUBLIC_SUPABASE_URL=https://tu-proyecto.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=tu_service_role_key   # Settings > API (SECRETA)
+ANTHROPIC_API_KEY=sk-ant-xxxxx                  # console.anthropic.com (SECRETA)
 ```
+
+> **Importante:** el formulario se procesa en el servidor (`pages/api/submit.js`),
+> así las claves nunca llegan al navegador. La `service_role` key y la
+> `ANTHROPIC_API_KEY` jamás deben usar el prefijo `NEXT_PUBLIC_`.
+
+### Cómo funciona el flujo
+
+1. El visitante completa el formulario.
+2. `POST /api/submit` valida los datos, guarda el lead en Supabase y llama a
+   Claude (`claude-opus-4-8`) para generar un análisis personalizado.
+3. Se muestra al instante: diagnóstico + oportunidades de IA + primer paso.
+
+Si Supabase o Anthropic no están configurados, el formulario sigue funcionando
+de forma degradada (guarda lo que pueda y muestra un mensaje de confirmación).
 
 ### 5. Ejecutar en Desarrollo
 
