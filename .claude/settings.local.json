@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:descubre.ia-aldia.com)",
+      "Bash(git init *)"
+    ]
+  }
+}
